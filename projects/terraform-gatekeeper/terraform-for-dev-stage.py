@@ -17,6 +17,8 @@ def run_terraform(env: str):  # use the variable named 'env' of type str inside 
     print(f"🚀 Initializing Terraform for {env}...")
 
     try:
+        # subprocess.run is like exec.Command in Go
+        # We pass the command as a LIST of strings
         result = subprocess.run(
             ["terraform", "plan", "-var", f"-var={env}"],
             check=True,  # Throws an error if the command fails
@@ -34,6 +36,8 @@ def run_terraform(env: str):  # use the variable named 'env' of type str inside 
     except FileNotFoundError:
         print("📂 Error: Terraform is not installed or not in your PATH.")
 
+
+# --- Main Execution ---
 if __name__ == "__main__":
     # Get user input (like fmt.Scanln in Go)
     target_env = input("Enter the environment to deploy (dev/staging/prod): ")
