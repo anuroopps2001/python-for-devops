@@ -1,0 +1,8 @@
+{
+    "name": "web-server-sg",
+    "vpc_id": "vpc-12345",
+    "port": 443,
+    "protocol": "tcp",
+    "environment": "production",
+    "auto_scaling": "enabled"
+}
