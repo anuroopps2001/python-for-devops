@@ -131,3 +131,49 @@ I am bringing 0 napkins to the picnic
 >>>
 ```
 
+### Data structures in python dictionaries
+
+- List of Dictionaries
+```bash
+>>> cat = {'name': 'Zoophie', 'age': 7, 'color': 'gray'}
+>>> cat
+{'name': 'Zoophie', 'age': 7, 'color': 'gray'}
+>>> allCats = []  # list initialization
+>>> allCats
+[]
+
+# adding dictionaries into an list to make list of dictionaries
+>>> allCats.append({'name': 'Zoophie', 'age': 7, 'color': 'gray'})
+>>> allCats
+[{'name': 'Zoophie', 'age': 7, 'color': 'gray'}]
+>>> allCats.append({'name': 'Jimmy', 'age': 4, 'color': 'black'} 
+... )
+>>> allCats
+[{'name': 'Zoophie', 'age': 7, 'color': 'gray'}, {'name': 'Jimmy', 'age': 4, 'color': 'black'}]
+>>> allCats.append({'name': 'Mia', 'age': 8, 'color': 'white'}    
+... )
+
+# List of dictionaries
+>>> allCats
+[{'name': 'Zoophie', 'age': 7, 'color': 'gray'}, {'name': 'Jimmy', 'age': 4, 'color': 'black'}, {'name': 'Mia', 'age': 8, 'color': 'white'}]
+>>>
+```
+
+**List of Dictionaries is called as an `Data structure` in Python**
+
+- `type()` function is used to know the data type pf the value passed to an type function
+
+```py
+>>> type(allCats)
+<class 'list'>
+>>> type(cat)
+<class 'dict'>
+>>> type(3.34)
+<class 'float'>
+>>> type('name')
+<class 'str'>
+>>> type(21)
+<class 'int'>
+>>>
+```
+

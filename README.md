@@ -405,3 +405,183 @@ Output:
 hello
 hello
 ```
+
+### Advanced strings concepts in Python
+```py
+>>> print('That's Alice's Cat')
+  File "<stdin>", line 1
+    print('That's Alice's Cat')
+                ^^^^^^^
+SyntaxError: invalid syntax. Is this intended to be part of the string?
+>>>
+
+>>> print("That is Alice's Cat")  # Using Double Quotes
+That is Alice's Cat
+>>>
+```
+
+- Escape Characters:
+```py
+>>> 'Say Hi to Bob\'s Mother'  # BackSlash is an escape character
+"Say Hi to Bob's Mother"
+>>>
+```
+
+| Escape Character | Meaning / Description | Example            | Output                |
+| ---------------- | --------------------- | ------------------ | --------------------- |
+| `\n`             | New line              | `"Hello\nWorld"`   | Hello<br>World        |
+| `\t`             | Horizontal tab        | `"A\tB"`           | A B                   |
+| `\\`             | Backslash             | `"C:\\Path"`       | C:\Path               |
+| `\'`             | Single quote          | `'It\'s fine'`     | It's fine             |
+| `\"`             | Double quote          | `"He said \"Hi\""` | He said "Hi"          |
+| `\r`             | Carriage return       | `"Hello\rWorld"`   | World                 |
+
+
+```py
+>>> print('Hello There.!\nHow are you?\nI\'m fine')
+Hello There.!
+How are you?
+I'm fine
+>>>
+```
+
+- Raw strings :- These will print exactly what we have as an strings
+```py
+>>> r'That is Carol\'s Cat'
+"That is Carol\\'s Cat"
+>>>
+
+
+>>> print(r'That is Carol\'s Cat')
+That is Carol\'s Cat
+>>>
+```
+
+- Multi Line strings: These begin either with 3 single Quotes or 3 Double Quotes
+```py
+>>> print("""I'm writing this letter
+... ... to request for sendning an cheque book
+... ... as soon as possible.!
+... ... Thanks
+... Anuroop PS """)    
+I'm writing this letter
+to request for sendning an cheque book
+as soon as possible.!
+Thanks
+Anuroop PS
+>>>
+```
+
+**Also, we can do all the operations we do with lists for the strings as well**
+```py
+>>> spam = "This is my cat Loocie"
+>>> spam[2]
+'i'
+>>>
+>>> spam[1:9]
+'his is m'
+>>> spam[-2]
+'i'
+>>>
+
+
+>>> 'a' in spam
+True
+>>> 'z' not in spam
+True
+>>> 'x' in spam
+False
+>>>
+```
+
+
+### String methods
+- **Strings are immutable unlike lists. and Every method returns a new string, original is unchanged.**
+- `upper()` and `lower()` methods:
+```py
+>>> spam = "Hello World.!"
+>>> spam.upper()
+'HELLO WORLD.!'
+>>> spam
+'Hello World.!'
+>>> spam.lower()
+'hello world.!'
+>>
+```
+
+- `islower()` and `isupper()` methods returns boolean Output:
+```py
+spam = "Hello world"
+>>> spam.islower()
+False
+>>> spam = "hello world"
+>>> spam.islower()
+True
+>>>
+
+spam = "Hello world"
+>>> spam.isupper()
+False
+>>> spam = 'HELLO'
+>>> spam.isupper()
+True
+>>>
+```
+
+- We can call strings methods on returned values:
+```py
+>>> 'Hello'.upper().isupper()
+True
+>>>
+```
+
+| Method         | Description                           | Example                    | Output          |
+| -------------- | ------------------------------------- | -------------------------- | --------------- |
+| `upper()`      | Converts string to uppercase          | `"hello".upper()`          | `HELLO`         |
+| `lower()`      | Converts string to lowercase          | `"HELLO".lower()`          | `hello`         |
+| `title()`      | Capitalizes first letter of each word | `"hello world".title()`    | `Hello World`   |
+| `capitalize()` | Capitalizes first character           | `"hello".capitalize()`     | `Hello`         |
+| `swapcase()`   | Swaps case                            | `"HeLLo".swapcase()`       | `hEllO`         |
+| `strip()`      | Removes leading & trailing spaces     | `" hi ".strip()`           | `hi`            |
+| `lstrip()`     | Removes leading spaces                | `" hi".lstrip()`           | `hi`            |
+| `rstrip()`     | Removes trailing spaces               | `"hi ".rstrip()`           | `hi`            |
+| `replace()`    | Replaces substring                    | `"a-b".replace("-", "_")`  | `a_b`           |
+| `split()`      | Splits string into list               | `"a,b,c".split(",")`       | `['a','b','c']` |
+| `join()`       | Joins list into string                | `",".join(['cat','bat', 'rat'])`      | `cat, bat, rat
+| `find()`       | Finds first index                     | `"hello".find("e")`        | `1`             |
+| `index()`      | Finds index (error if not found)      | `"hello".index("e")`       | `1`             |
+| `count()`      | Counts substring                      | `"hello".count("l")`       | `2`             |
+| `startswith()` | Checks prefix                         | `"hello".startswith("he")` | `True`          |
+| `endswith()`   | Checks suffix                         | `"hello".endswith("lo")`   | `True`          |
+| `isalnum()`    | Alphanumeric check                    | `"abc123".isalnum()`       | `True`          |
+| `isalpha()`    | Alphabet only                         | `"abc".isalpha()`          | `True`          |
+| `isdigit()`    | Digit only                            | `"123".isdigit()`          | `True`          |
+| `isspace()`    | Whitespace only                       | `" ".isspace()`            | `True`          |
+| `islower()`    | Lowercase check                       | `"hello".islower()`        | `True`          |
+| `isupper()`    | Uppercase check                       | `"HELLO".isupper()`        | `True`          |
+| `zfill()`      | Pads with leading zeros               | `"42".zfill(5)`            | `00042`         |
+| `center()`     | Centers string                        | `"hi".center(6, "-")`      | `--hi--`        |
+| `ljust()`      | Left-justifies string                 | `"hi".ljust(5,"*")`        | `hi***`         |
+| `rjust()`      | Right-justifies string                | `"hi".rjust(5,"*")`        | `***hi`         |
+
+
+- Strings formatting:
+```py
+>>> name = 'Alice'
+>>> place = 'Main Street'
+>>> time = '6 pm'
+>>> food = 'Chicken'
+>>> 
+>>> 'Hello ' + name + ", You are invited to a party at " + place + " at " + time + " Please bring " + food
+'Hello Alice, You are invited to a party at Main Street at 6 pm Please bring Chicken'
+
+# Strings formatting
+>>> 'Hello %s, You are invited to a party at %s at %s. Please bring %s' % (name, place, time, food)
+'Hello Alice, You are invited to a party at Main Street at 6 pm. Please bring Chicken'
+>>>
+
+>>> print('Hello %s, You are invited to a party at %s at %s. Please bring %s' % (name, place, time, food))
+Hello Alice, You are invited to a party at Main Street at 6 pm. Please bring Chicken
+>>>
+```
+
