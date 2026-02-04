@@ -7,7 +7,8 @@ spec:
     app: stock-sell-inference
   type: ClusterIP
   ports:
-  - port: 8000 # This is the port other containers inside the container used to communicate with this service
+  - name: http
+    port: 8000 # This is the port other containers inside the container used to communicate with this service
     targetPort: 8000
     # If you set the `spec.type` field to `NodePort` and you want a specific port number,
     # you can specify a value in the `spec.ports[*].nodePort` field.
