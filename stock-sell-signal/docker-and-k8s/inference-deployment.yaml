@@ -18,7 +18,7 @@ spec:
           # - Each init container must complete successfully before the next one starts.
       containers:
       - name:  inference
-        image:  stock-sell-api:metrics
+        image:  anuroop21/stock-sell-api:metrics
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
