@@ -1,0 +1,2 @@
+# Trained model artifacts should not be commited into remote git repos
+*.pkl

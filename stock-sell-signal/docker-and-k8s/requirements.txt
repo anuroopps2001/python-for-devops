@@ -1,0 +1,8 @@
+# List all the modules we need to run our inference and the model in turn
+fastapi
+uvicorn
+scikit-learn
+joblib
+pandas
+numpy
+prometheus_client

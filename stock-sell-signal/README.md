@@ -7,9 +7,9 @@ Past ←──────── Today ────────→ Future
         ↑ features             ↑ label
 ```
 
-- Features → describe today
+- Features → what happened in the past
 
-- Label → describes future outcome
+- Label → what we want to predict in the future
 
 Example label:
 ```bash
