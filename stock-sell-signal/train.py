@@ -50,7 +50,7 @@ def train_model(csv_path):
     model = LogisticRegression()
     model.fit(X_training, y_training)  # Training against the table in X_training with table in y_training
     
-    joblib.dump(model, "model_v1.pkl") # storing trained model as an artifact, which we for containarizing
+    joblib.dump(model, "model_v1.pkl") # storing trained model as an artifact, which we containarize
     print("Model saved as model_v1.pkl")
 
     loaded_module = joblib.load("model_v1.pkl")  # loading back the stored artifact to use it as trained model
@@ -60,7 +60,7 @@ def train_model(csv_path):
     # scenarios it was trained previously by providing both X_train and y_train data.
     # However, now we are asking model to predict the answers of y_testing based on previous training
     
-    sell_probability = loaded_module.predict_proba(X_testing)[:, 1]
+    sell_probability = loaded_module.predict_proba(X_testing)[:, 1] # Testing model against the training done earlier
     # enumerate() function
     # Ex:- numbers = [10, 20, 30]
     # for n in numbers:
@@ -100,5 +100,7 @@ def train_model(csv_path):
     print("\nSELL Probabilities for test rows with Date of each Stock")
     for date, prob in zip(dates, sell_probability):
         print(f"Date {date}: SELL probability = {prob:.3f}")
+
+
 if __name__ == "__main__":
     train_model("stock_labelled.csv")
