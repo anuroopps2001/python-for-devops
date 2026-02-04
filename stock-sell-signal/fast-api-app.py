@@ -3,14 +3,15 @@ import os
 import time
 import numpy as np
 import pandas as pd
-from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi import FastAPI, status, HTTPException
 from fastapi.responses import Response
-from fastapi import HTTPException
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 
 
 MODEL_PATH = "model_v1.pkl"
+
+# An object that listens for HTTP requests and decides what Python code to run.
 app = FastAPI(title="Stock Sell Inference API")  # This is how to define an app based on FastAPI docs
 
 # Load model once at startup
@@ -44,22 +45,30 @@ SELL_THRESHOLD = float(os.getenv("SELL_THRESHOLD", "0.7"))  # getenv() is used t
 # at first arg
 
 
-# Defining a class 
-class StockFeatures(BaseModel):
+# Defining a class and it says “Incoming JSON must look like this." and it;s just an schema or structure
+class StockFeatures(BaseModel):  # This class defines the schema validation and make sure input is provided with
+    # below and values and with their respective types
     ma_5: float
     price_vs_ma5: float
     daily_returns: float
 
 
 # /health point API on GET method
-@app.get("/health")
+@app.get("/health", status_code=200)  # This is an Decorater in FastAPI Terms and does GET method work
 def health():
-    return {"status": "Ok"}
+    try:
+       return {"status": "Ok", "status_code": status.HTTP_200_OK}
+    except Exception as e:
+        return {e: status.HTTP_404_NOT_FOUND}
+
 
 
 # API to an add input details
-@app.post("/predict")
+@app.post("/predict")  # This is an Decorater in FastAPI Terms and does POST method work
 def predict_sell_probability(features: StockFeatures):  # features is an parameter of type StockFeatures (which is an class)
+    # and before FastAPI calling this function, FastAPI make sure that the input matches schema defined in StockFeatures class
+    # and the endpoint (path/route) is /predict
+
     # X = np.array([[
     #     features.ma_5,
     #     features.price_vs_ma5,
@@ -100,6 +109,7 @@ def predict_sell_probability(features: StockFeatures):  # features is an paramet
               "sell_signal": sell_signal,
               "threshold": SELL_THRESHOLD
         }
+    
     except Exception as e:
         ERROR_COUNT.inc()
         raise HTTPException(status_code=500, detail=str(e))
