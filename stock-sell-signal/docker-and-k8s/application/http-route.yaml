@@ -1,0 +1,22 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: stock-route
+  namespace: default
+spec:
+  parentRefs:
+  - name: envoy-gateway   # Refers to the Gateway instance we have created earlier
+  rules:
+  - matches:   # list of path's/routes we want to access that are being exposed as FastAPI endpoints from python
+    - path:    
+        type: PathPrefix   
+        value: /health
+    - path:
+        type: PathPrefix
+        value: /predict
+    - path:
+        type: PathPrefix
+        value: /metrics
+    backendRefs:
+    - name: stock-sell-inference-service
+      port: 8000

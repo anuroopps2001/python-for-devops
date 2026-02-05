@@ -20,10 +20,11 @@ model = joblib.load(MODEL_PATH)
 print("Model loaded successfully")
 
 
-
+# Define the counter with 'labelnames'
 REQUEST_COUNT = Counter(                 # "Counter" is A cumulative metric that can only increase
     "prediction_requests_total",         # This is an actual metric
-    "Total number of prediction requests"  # This is description of that metric
+    "Total number of prediction requests",  # This is description of that metric
+    labelnames=["status"]
 )
 
 ERROR_COUNT = Counter(
@@ -74,11 +75,10 @@ def predict_sell_probability(features: StockFeatures):  # features is an paramet
     #     features.price_vs_ma5,
     #     features.daily_returns
     # ]])
-
-    REQUEST_COUNT.inc()  # inc() increment the count by 1 which is default value
-
+    
     # # Record the start time using perf_counter()
     start_time = time.perf_counter() 
+
 
     try:
 
@@ -93,6 +93,9 @@ def predict_sell_probability(features: StockFeatures):  # features is an paramet
         sell_signal = bool(sell_prob >= SELL_THRESHOLD)
         if sell_signal:
             SELL_SIGNAL_COUNT.inc()
+
+        # If it works, label as success
+        REQUEST_COUNT.labels(status="success").inc()  # inc() increment the count by 1 which is default value
 
         # # Record the end time
         end_time = time.perf_counter()
@@ -111,9 +114,17 @@ def predict_sell_probability(features: StockFeatures):  # features is an paramet
         }
     
     except Exception as e:
-        ERROR_COUNT.inc()
-        raise HTTPException(status_code=500, detail=str(e))
+        # For the Human (Logs)
+        print(f"{e}")
 
+        # For the Dashboard (Prometheus)
+        REQUEST_COUNT.labels(status="Error").inc()
+
+        latency = time.perf_counter() - start_time
+        PREDICTION_LATENCY.observe(latency)
+
+        # For the System (Status Code 500)
+        raise HTTPException(status_code=500, detail=str(e))
 
 # Exposing metrics endpoint
 @app.get("/metrics")

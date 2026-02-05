@@ -3,7 +3,7 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Install Dependencies listed in requirements.txt
-COPY docker-and-k8s/requirements.txt .
+COPY docker-and-k8s/docker-files/requirements.txt .
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt

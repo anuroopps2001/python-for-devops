@@ -1,0 +1,107 @@
+{
+  "id": 1,
+  "type": "timeseries",
+  "title": "Request rate",
+  "description": "Is anyone calling my service?",
+  "gridPos": {
+    "x": 12,
+    "y": 8,
+    "h": 8,
+    "w": 12
+  },
+  "fieldConfig": {
+    "defaults": {
+      "custom": {
+        "drawStyle": "line",
+        "lineInterpolation": "linear",
+        "barAlignment": 0,
+        "barWidthFactor": 0.6,
+        "lineWidth": 1,
+        "fillOpacity": 0,
+        "gradientMode": "hue",
+        "spanNulls": false,
+        "insertNulls": false,
+        "showPoints": "auto",
+        "showValues": false,
+        "pointSize": 6,
+        "stacking": {
+          "mode": "normal",
+          "group": "A"
+        },
+        "axisPlacement": "auto",
+        "axisLabel": "",
+        "axisColorMode": "text",
+        "axisBorderShow": false,
+        "scaleDistribution": {
+          "type": "linear"
+        },
+        "axisCenteredZero": false,
+        "hideFrom": {
+          "tooltip": false,
+          "viz": false,
+          "legend": false
+        },
+        "thresholdsStyle": {
+          "mode": "off"
+        }
+      },
+      "color": {
+        "mode": "thresholds",
+        "seriesBy": "last",
+        "fixedColor": "green"
+      },
+      "mappings": [],
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "green",
+            "value": null
+          },
+          {
+            "color": "yellow",
+            "value": 80
+          },
+          {
+            "value": 90,
+            "color": "red"
+          }
+        ]
+      },
+      "unit": "reqps"
+    },
+    "overrides": []
+  },
+  "pluginVersion": "12.3.1",
+  "targets": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "editorMode": "builder",
+      "expr": "sum(rate(prediction_requests_total[$__rate_interval]))",
+      "legendFormat": "Requests per second",
+      "range": true,
+      "refId": "A"
+    }
+  ],
+  "datasource": {
+    "type": "prometheus",
+    "uid": "prometheus"
+  },
+  "options": {
+    "tooltip": {
+      "mode": "single",
+      "sort": "none",
+      "hideZeros": false,
+      "maxWidth": -1
+    },
+    "legend": {
+      "showLegend": true,
+      "displayMode": "list",
+      "placement": "bottom",
+      "calcs": []
+    }
+  }
+}
